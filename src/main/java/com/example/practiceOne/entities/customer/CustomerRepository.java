@@ -1,32 +1,48 @@
 package com.example.practiceOne.entities.customer;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-public class CustomerRepository{
+public class CustomerRepository {
 
-    private List<CustomerDTO> customers;
+    private JdbcTemplate jdbcTemplate;
 
-    public CustomerRepository() {
-        customers = new ArrayList<>();
-        customers.add(CustomerDTO.builder().id(1L).username("tamerlan").email("tamer@gmail.com").build());
-        customers.add(CustomerDTO.builder().id(2L).username("alisher").email("alish@gmail.com").build());
-        customers.add(CustomerDTO.builder().id(3L).username("string").email("string@gmail.com").build());
+    @Autowired
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public CustomerDTO getCustomerById(Long id) {
-        for (CustomerDTO customer : customers) {
-            if (Objects.equals(customer.getId(), id)) {
-                return customer;
-            }
-        }
-        return null;
+    public Customer getCustomerById(Long id) {
+        return jdbcTemplate.queryForObject(
+                "SELECT * FROM customers WHERE id = ?",
+                new Object[]{id},
+                (rs, rowNum) -> new Customer(
+                        rs.getLong("id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("hashedPassword"),
+                        rs.getString("passportNumber")
+                )
+        );
     }
 
-    public List<CustomerDTO> getCustomers() {
-        return customers;
+    public List<Customer> getCustomers() {
+        return jdbcTemplate.query(
+                "SELECT * FROM customers",
+                (rs, rowNum) -> new Customer(
+                        rs.getLong("id"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("hashedPassword"),
+                        rs.getString("passportNumber")
+                )
+        );
     }
+
 
 }

@@ -9,4 +9,6 @@ public class CustomerDTO {
     private Long id;
     private String username;
     private String email;
+    private String hashedPassword;
+    private String passportNumber;
 }

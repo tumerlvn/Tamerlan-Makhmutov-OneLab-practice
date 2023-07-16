@@ -1,6 +1,9 @@
 package com.example.practiceOne.entities.flight;
 
 
+import com.example.practiceOne.entities.customer.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -8,31 +11,37 @@ import java.util.*;
 @Repository
 public class FlightRepository {
 
-    private List<FlightDTO> flights;
+    private JdbcTemplate jdbcTemplate;
 
-    public FlightRepository() {
-        flights = new ArrayList<>();
-        flights.add(FlightDTO.builder().id(1L)
-                .aircraftCode("A338")
-                .departureCity("New York")
-                .arrivalCity("Tokyo").build());
-        flights.add(FlightDTO.builder().id(2L)
-                .aircraftCode("B37M")
-                .departureCity("Tokyo")
-                .arrivalCity("Almaty").build());
+    @Autowired
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public FlightDTO getFlightById(Long id) {
-        for (FlightDTO flight : flights) {
-            if (Objects.equals(flight.getId(), id)) {
-                return flight;
-            }
-        }
-        return null;
+    public Flight getFlightById(Long id) {
+        return jdbcTemplate.queryForObject(
+                "SELECT * FROM flights WHERE id = ?",
+                new Object[]{id},
+                (rs, rowNum) -> new Flight(
+                        rs.getLong("id"),
+                        rs.getString("aircraftCode"),
+                        rs.getString("departureCity"),
+                        rs.getString("arrivalCity"),
+                        rs.getString("departureTime")
+                ));
     }
 
-    public List<FlightDTO> getFlights() {
-        return flights;
+    public List<Flight> getFlights() {
+        return jdbcTemplate.query(
+                "SELECT * FROM flights",
+                (rs, rowNum) -> new Flight(
+                        rs.getLong("id"),
+                        rs.getString("aircraftCode"),
+                        rs.getString("departureCity"),
+                        rs.getString("arrivalCity"),
+                        rs.getString("departureTime")
+                )
+        );
     }
 
 }
