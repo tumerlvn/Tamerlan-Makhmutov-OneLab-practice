@@ -1,11 +1,9 @@
 package com.example.practiceOne;
 
-import com.example.practiceOne.entities.customer.CustomerDTO;
-import com.example.practiceOne.entities.flight.FlightDTO;
-import com.example.practiceOne.entities.ticket.TicketDTO;
+import com.example.practiceOne.config.AppConfig;
+import com.example.practiceOne.service.AppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;

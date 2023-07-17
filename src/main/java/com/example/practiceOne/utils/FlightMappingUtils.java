@@ -1,5 +1,7 @@
-package com.example.practiceOne.entities.flight;
+package com.example.practiceOne.utils;
 
+import com.example.practiceOne.entities.flight.Flight;
+import com.example.practiceOne.entities.flight.FlightDTO;
 import org.springframework.stereotype.Service;
 
 @Service

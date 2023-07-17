@@ -1,5 +1,6 @@
-package com.example.practiceOne.entities.customer;
+package com.example.practiceOne.repository;
 
+import com.example.practiceOne.entities.customer.Customer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

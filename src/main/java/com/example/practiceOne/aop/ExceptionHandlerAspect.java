@@ -18,10 +18,10 @@ public class ExceptionHandlerAspect {
 
     private final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
 
-    @Pointcut("execution(* com.example.practiceOne.entities.customer.CustomerRepository.getCustomerById(..))")
+    @Pointcut("execution(* com.example.practiceOne.repository.CustomerRepository.getCustomerById(..))")
     public void getCustomerByIdExecution() {}
 
-    @Pointcut("execution(* com.example.practiceOne.entities.flight.FlightRepository.getFlightById(..))")
+    @Pointcut("execution(* com.example.practiceOne.repository.FlightRepository.getFlightById(..))")
     public void getFlightByIdExecution() {}
 
     @Around("getCustomerByIdExecution() || getFlightByIdExecution()")
@@ -38,7 +38,7 @@ public class ExceptionHandlerAspect {
         return retVal;
     }
 
-    @AfterThrowing(value="execution(* com.example.practiceOne.AppService.*(..))",throwing="ex")
+    @AfterThrowing(value="execution(* com.example.practiceOne.service.AppService.*(..))",throwing="ex")
     public void afterThrowingAdvice(JoinPoint joinPoint, Exception ex)
     {
         logger.error("After Throwing exception in method: "+joinPoint.getSignature());

@@ -1,5 +1,7 @@
-package com.example.practiceOne.entities.customer;
+package com.example.practiceOne.utils;
 
+import com.example.practiceOne.entities.customer.Customer;
+import com.example.practiceOne.entities.customer.CustomerDTO;
 import org.springframework.stereotype.Service;
 
 @Service

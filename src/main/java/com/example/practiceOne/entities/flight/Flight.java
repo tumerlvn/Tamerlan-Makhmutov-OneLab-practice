@@ -1,8 +1,10 @@
 package com.example.practiceOne.entities.flight;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -10,6 +12,8 @@ import java.util.Date;
 @Table(name="flights")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Flight {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

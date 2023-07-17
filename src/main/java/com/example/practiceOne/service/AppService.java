@@ -1,21 +1,18 @@
-package com.example.practiceOne;
+package com.example.practiceOne.service;
 
 import com.example.practiceOne.entities.customer.CustomerDTO;
-import com.example.practiceOne.entities.customer.CustomerMappingUtils;
-import com.example.practiceOne.entities.customer.CustomerRepository;
+import com.example.practiceOne.utils.CustomerMappingUtils;
+import com.example.practiceOne.repository.CustomerRepository;
 import com.example.practiceOne.entities.flight.FlightDTO;
-import com.example.practiceOne.entities.flight.FlightMappingUtils;
-import com.example.practiceOne.entities.flight.FlightRepository;
-import com.example.practiceOne.entities.ticket.Ticket;
+import com.example.practiceOne.utils.FlightMappingUtils;
+import com.example.practiceOne.repository.FlightRepository;
 import com.example.practiceOne.entities.ticket.TicketDTO;
-import com.example.practiceOne.entities.ticket.TicketMappingUtils;
-import com.example.practiceOne.entities.ticket.TicketRepository;
+import com.example.practiceOne.utils.TicketMappingUtils;
+import com.example.practiceOne.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class AppService {

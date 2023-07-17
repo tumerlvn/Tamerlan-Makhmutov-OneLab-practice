@@ -1,16 +1,13 @@
-package com.example.practiceOne.entities.ticket;
+package com.example.practiceOne.repository;
 
-import com.example.practiceOne.entities.customer.CustomerDTO;
 import com.example.practiceOne.entities.flight.Flight;
-import com.example.practiceOne.entities.flight.FlightDTO;
-import com.example.practiceOne.entities.flight.FlightRepository;
+import com.example.practiceOne.entities.ticket.Ticket;
+import com.example.practiceOne.entities.ticket.TicketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 @Repository
 public class TicketRepository {

@@ -1,7 +1,7 @@
 package com.example.practiceOne.aop;
 
-import com.example.practiceOne.entities.customer.CustomerRepository;
-import com.example.practiceOne.entities.flight.FlightRepository;
+import com.example.practiceOne.repository.CustomerRepository;
+import com.example.practiceOne.repository.FlightRepository;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,7 +23,7 @@ public class DatabaseIntegrityAspect {
     @Autowired
     FlightRepository flightRepository;
 
-    @Pointcut("execution(* com.example.practiceOne.AppService.createTicket(Long,Long)) && args(customerId, flightId)")
+    @Pointcut("execution(* com.example.practiceOne.service.AppService.createTicket(Long,Long)) && args(customerId, flightId)")
     public void createTicketExecution(Long customerId, Long flightId) {}
 
     @Around("createTicketExecution(customerId, flightId)")
