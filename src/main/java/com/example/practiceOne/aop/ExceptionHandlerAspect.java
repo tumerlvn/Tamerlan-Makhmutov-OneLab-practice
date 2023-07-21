@@ -38,7 +38,7 @@ public class ExceptionHandlerAspect {
         return retVal;
     }
 
-    @AfterThrowing(value="execution(* com.example.practiceOne.service.AppService.*(..))",throwing="ex")
+    @AfterThrowing(value="execution(* com.example.practiceOne.AppService.*(..))",throwing="ex")
     public void afterThrowingAdvice(JoinPoint joinPoint, Exception ex)
     {
         logger.error("After Throwing exception in method: "+joinPoint.getSignature());

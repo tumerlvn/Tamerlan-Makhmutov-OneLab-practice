@@ -1,12 +1,15 @@
 package com.example.practiceOne;
 
-import com.example.practiceOne.config.AppConfig;
-import com.example.practiceOne.service.AppService;
+import com.example.practiceOne.service.CustomerService;
+import com.example.practiceOne.service.FlightService;
+import com.example.practiceOne.service.TicketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 @SpringBootApplication
 public class PracticeOneApplication {
@@ -15,20 +18,31 @@ public class PracticeOneApplication {
 
 	public static void main(String[] args) {
 
-//		SpringApplication.run(PracticeOneApplication.class, args);
-		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		SpringApplication.run(PracticeOneApplication.class, args);
 
-		AppService appService = (AppService) ctx.getBean("appService");
-
-		appService.getAllCustomers().forEach(s -> logger.info(s.toString()));
-		appService.getAllFlights().forEach(s -> logger.info(s.toString()));
-		appService.getAllTicketsOfCustomer(1L).forEach(s -> logger.info(s.toString()));
-		appService.getAllCustomersOnFlight(1L).forEach(s -> logger.info(s.toString()));
-		logger.info(appService.getCustomerById(1L).toString());
-		appService.createTicket(1L, 2L);
-		// Non-existing ids
-		appService.createTicket(4L,5L);
 	}
+
+	@Bean
+	public CommandLineRunner commandLineRunner(
+			CustomerService customerService,
+			FlightService flightService,
+			TicketService ticketService
+	) {
+		return (args) -> {
+			customerService.getAllCustomers().forEach(s -> logger.info(s.toString()));
+			flightService.getAllFlights().forEach(s -> logger.info(s.toString()));
+			ticketService.getAllTicketsOfCustomer(1L).forEach(s -> logger.info(s.toString()));
+			customerService.getAllCustomersOnFlight(1L).forEach(s -> logger.info(s.toString()));
+			logger.info(customerService.getCustomer(1L).toString());
+			ticketService.createTicket(1L, 2L);
+			// Query by example
+			customerService.queryByNameEnd("er").forEach(s -> logger.info(s.toString()));
+//			 Non-existing ids
+			ticketService.createTicket(4L,5L);
+			ticketService.getAllTicketsOfCustomer(4L).forEach(s -> logger.info(s.toString()));
+		};
+	}
+
 
 
 

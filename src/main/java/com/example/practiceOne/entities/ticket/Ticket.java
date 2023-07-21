@@ -1,5 +1,7 @@
 package com.example.practiceOne.entities.ticket;
 
+import com.example.practiceOne.entities.customer.Customer;
+import com.example.practiceOne.entities.flight.Flight;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,10 +23,12 @@ public class Ticket {
 
     // я пока не делал ссылку на другие таблицы через JoinColumn
     // возможно пока рано
-    @Column
-    private Long customerId;
-    @Column
-    private Long flightId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
     @Column
     private String departureDateTime;
 }

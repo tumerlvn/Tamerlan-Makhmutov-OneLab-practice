@@ -6,6 +6,6 @@ INSERT INTO flights(aircraftCode, departureCity, arrivalCity, departureTime) VAL
 INSERT INTO flights(aircraftCode, departureCity, arrivalCity, departureTime) VALUES('207', 'Almaty', 'Astana', '30-07-2020');
 INSERT INTO flights(aircraftCode, departureCity, arrivalCity, departureTime) VALUES('503', 'Almaty', 'Berlin', '30-07-2020');
 
-INSERT INTO tickets(customerId, flightId, departureDateTime) VALUES(1, 1, '29-07-2020');
-INSERT INTO tickets(customerId, flightId, departureDateTime) VALUES(1, 3, '30-07-2020');
+INSERT INTO tickets(customer_id, flight_id, departureDateTime) VALUES(1, 1, '29-07-2020');
+INSERT INTO tickets(customer_id, flight_id, departureDateTime) VALUES(1, 3, '30-07-2020');
 

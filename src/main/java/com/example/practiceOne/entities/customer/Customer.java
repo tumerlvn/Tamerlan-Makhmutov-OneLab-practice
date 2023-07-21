@@ -1,7 +1,11 @@
 package com.example.practiceOne.entities.customer;
 
+import com.example.practiceOne.entities.ticket.Ticket;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="customers")
@@ -26,5 +30,11 @@ public class Customer {
     @Column
     private String passportNumber;
 
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<Ticket> tickets = new HashSet<>();
 
 }

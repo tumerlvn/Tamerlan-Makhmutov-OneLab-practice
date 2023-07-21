@@ -1,5 +1,6 @@
 package com.example.practiceOne.entities.flight;
 
+import com.example.practiceOne.entities.ticket.Ticket;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="flights")
@@ -27,4 +30,9 @@ public class Flight {
     private String arrivalCity;
     @Column
     private String departureTime;
+
+    @OneToMany(mappedBy = "flight",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    private Set<Ticket> tickets = new HashSet<>();
 }

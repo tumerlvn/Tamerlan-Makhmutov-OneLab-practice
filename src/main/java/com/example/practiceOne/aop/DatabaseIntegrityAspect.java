@@ -2,6 +2,8 @@ package com.example.practiceOne.aop;
 
 import com.example.practiceOne.repository.CustomerRepository;
 import com.example.practiceOne.repository.FlightRepository;
+import com.example.practiceOne.service.CustomerService;
+import com.example.practiceOne.service.FlightService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,20 +20,20 @@ public class DatabaseIntegrityAspect {
     private final Logger logger = LoggerFactory.getLogger(DatabaseIntegrityAspect.class);
 
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerService customerService;
 
     @Autowired
-    FlightRepository flightRepository;
+    FlightService flightService;
 
-    @Pointcut("execution(* com.example.practiceOne.service.AppService.createTicket(Long,Long)) && args(customerId, flightId)")
+    @Pointcut("execution(* com.example.practiceOne.service.TicketService.createTicket(Long,Long)) && args(customerId, flightId)")
     public void createTicketExecution(Long customerId, Long flightId) {}
 
     @Around("createTicketExecution(customerId, flightId)")
     public Object checkCreationOfTicket(ProceedingJoinPoint pjp, Long customerId, Long flightId) throws Throwable {
-        if (customerRepository.getCustomerById(customerId) == null) {
+        if (customerService.getCustomer(customerId) == null) {
             logger.error("Customer doesn't exist");
             return null;
-        } else if (flightRepository.getFlightById(flightId) == null) {
+        } else if (flightService.getFlight(flightId) == null) {
             logger.error("Flight doesn't exist");
             return null;
         } else {

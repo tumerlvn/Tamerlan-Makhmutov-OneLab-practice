@@ -1,5 +1,7 @@
 package com.example.practiceOne.entities.ticket;
 
+import com.example.practiceOne.entities.customer.CustomerDTO;
+import com.example.practiceOne.entities.flight.FlightDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class TicketDTO {
     private Long id;
-    private Long customerId;
-    private Long flightId;
+    private CustomerDTO customerDto;
+    private FlightDTO flightDto;
     private String departureDateTime;
 }
