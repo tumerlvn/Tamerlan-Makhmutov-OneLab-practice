@@ -7,6 +7,7 @@ import com.example.practiceOne.utils.mappers.CustomerMapper;
 import com.example.practiceOne.repository.CustomerRepository;
 import com.example.practiceOne.repository.TicketRepository;
 import com.example.practiceOne.service.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -16,19 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private TicketRepository ticketRepository;
-
-    @Autowired
-    private CustomerMapper customerMapper;
+    // Оказывается использовать field injection - нежелательно
+    // Заменил на constructor injection с использованием RequiredArgsConstructor
+    private final CustomerRepository customerRepository;
+    private final TicketRepository ticketRepository;
+    private final CustomerMapper customerMapper;
 
     @Override
-    @Transactional(readOnly = true)
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository
                 .findAll()
@@ -38,7 +37,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<CustomerDTO> getAllCustomersOnFlight(Long flightId) {
         return ticketRepository
                 .findAllByFlightId(flightId)
@@ -50,13 +48,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    @Transactional(readOnly = true)
     public CustomerDTO getCustomer(Long customerId) {
         return customerMapper.mapToCustomerDto(customerRepository.findById(customerId));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<CustomerDTO> queryByNameEnd(String ending) {
         Customer customer = new Customer();
         customer.setUsername(ending);

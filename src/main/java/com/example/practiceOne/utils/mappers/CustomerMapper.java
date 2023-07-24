@@ -2,6 +2,7 @@ package com.example.practiceOne.utils.mappers;
 
 import com.example.practiceOne.entities.customer.Customer;
 import com.example.practiceOne.entities.customer.CustomerDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -9,9 +10,10 @@ import org.slf4j.Logger;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerMapper {
-    @Autowired
-    Logger log;
+
+    private final Logger log;
 
     public CustomerDTO mapToCustomerDto(Customer customer) {
         return CustomerDTO.builder()

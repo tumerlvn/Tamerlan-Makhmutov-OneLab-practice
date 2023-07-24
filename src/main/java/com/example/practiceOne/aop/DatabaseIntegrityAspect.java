@@ -4,6 +4,7 @@ import com.example.practiceOne.repository.CustomerRepository;
 import com.example.practiceOne.repository.FlightRepository;
 import com.example.practiceOne.service.CustomerService;
 import com.example.practiceOne.service.FlightService;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,15 +16,14 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class DatabaseIntegrityAspect {
 
     private final Logger logger = LoggerFactory.getLogger(DatabaseIntegrityAspect.class);
 
-    @Autowired
-    CustomerService customerService;
 
-    @Autowired
-    FlightService flightService;
+    private final CustomerService customerService;
+    private final FlightService flightService;
 
     @Pointcut("execution(* com.example.practiceOne.service.TicketService.createTicket(Long,Long)) && args(customerId, flightId)")
     public void createTicketExecution(Long customerId, Long flightId) {}

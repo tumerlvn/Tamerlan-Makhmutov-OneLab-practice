@@ -2,6 +2,7 @@ package com.example.practiceOne.utils.mappers;
 
 import com.example.practiceOne.entities.ticket.Ticket;
 import com.example.practiceOne.entities.ticket.TicketDTO;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,16 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TicketMapper {
 
-    @Autowired
-    Logger log;
 
-    @Autowired
-    CustomerMapper customerMapper;
+    private final Logger log;
+    private final CustomerMapper customerMapper;
+    private final FlightMapper flightMapper;
 
-    @Autowired
-    FlightMapper flightMapper;
     public TicketDTO mapToTicketDto(Ticket ticket) {
         return TicketDTO
                 .builder()

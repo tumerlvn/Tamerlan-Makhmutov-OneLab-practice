@@ -11,6 +11,7 @@ import com.example.practiceOne.utils.mappers.TicketMapper;
 import com.example.practiceOne.repository.TicketRepository;
 import com.example.practiceOne.service.TicketService;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +21,14 @@ import java.util.List;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
 public class TicketServiceImpl implements TicketService {
-    @Autowired
-    TicketRepository ticketRepository;
-    @Autowired
-    CustomerService customerService;
-    @Autowired
-    FlightService flightService;
-    @Autowired
-    TicketMapper ticketMapper;
-    @Autowired
-    Logger log;
+
+    private final TicketRepository ticketRepository;
+    private final CustomerService customerService;
+    private final FlightService flightService;
+    private final TicketMapper ticketMapper;
+
     @Override
     @Transactional(readOnly = true)
     public List<TicketDTO> getAllTicketsOfCustomer(Long customerId) {

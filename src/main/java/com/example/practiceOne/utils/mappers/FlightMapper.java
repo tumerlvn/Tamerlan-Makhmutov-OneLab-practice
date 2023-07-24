@@ -2,6 +2,7 @@ package com.example.practiceOne.utils.mappers;
 
 import com.example.practiceOne.entities.flight.Flight;
 import com.example.practiceOne.entities.flight.FlightDTO;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class FlightMapper {
 
-    @Autowired
-    Logger log;
+
+    private final Logger log;
 
     public FlightDTO mapToFlightDto(Flight flight) {
         return FlightDTO
