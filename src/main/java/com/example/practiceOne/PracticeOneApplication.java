@@ -1,5 +1,6 @@
 package com.example.practiceOne;
 
+import com.example.practiceOne.entities.booking.BookingDTO;
 import com.example.practiceOne.service.CustomerService;
 import com.example.practiceOne.service.FlightService;
 import com.example.practiceOne.service.TicketService;
@@ -35,6 +36,7 @@ public class PracticeOneApplication {
 			customerService.getAllCustomersOnFlight(1L).forEach(s -> logger.info(s.toString()));
 			logger.info(customerService.getCustomer(1L).toString());
 			ticketService.createTicket(1L, 2L);
+			customerService.bookTicket(1L, 3L);
 			// Query by example
 			customerService.queryByNameEnd("er").forEach(s -> logger.info(s.toString()));
 //			 Non-existing ids

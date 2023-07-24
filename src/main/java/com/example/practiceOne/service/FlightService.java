@@ -8,4 +8,6 @@ public interface FlightService {
     public List<FlightDTO> getAllFlights();
 
     public FlightDTO getFlight(Long flightId);
+
+    public List<FlightDTO> getAllFlightsOfCustomer(Long customerId);
 }

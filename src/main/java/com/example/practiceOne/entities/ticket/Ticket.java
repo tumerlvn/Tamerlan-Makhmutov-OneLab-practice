@@ -20,15 +20,10 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    // я пока не делал ссылку на другие таблицы через JoinColumn
-    // возможно пока рано
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
     @ManyToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
-    @Column
-    private String departureDateTime;
 }

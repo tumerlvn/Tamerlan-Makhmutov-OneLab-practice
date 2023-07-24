@@ -1,7 +1,9 @@
 package com.example.practiceOne.service.app;
 
 import com.example.practiceOne.entities.flight.FlightDTO;
+import com.example.practiceOne.entities.ticket.Ticket;
 import com.example.practiceOne.repository.FlightRepository;
+import com.example.practiceOne.repository.TicketRepository;
 import com.example.practiceOne.service.FlightService;
 import com.example.practiceOne.utils.mappers.FlightMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.List;
 public class FlightServiceImpl implements FlightService {
 
     private final FlightRepository flightRepository;
+    private final TicketRepository ticketRepository;
     private final FlightMapper flightMapper;
 
     @Override
@@ -24,7 +27,7 @@ public class FlightServiceImpl implements FlightService {
         return flightRepository
                 .findAll()
                 .stream()
-                .map(e -> flightMapper.mapToFlightDto(e))
+                .map(flightMapper::mapToFlightDto)
                 .toList();
     }
 
@@ -32,4 +35,16 @@ public class FlightServiceImpl implements FlightService {
     public FlightDTO getFlight(Long flightId) {
         return flightMapper.mapToFlightDto(flightRepository.findById(flightId));
     }
+
+    @Override
+    public List<FlightDTO> getAllFlightsOfCustomer(Long customerId) {
+        return ticketRepository
+                .findAllByCustomerId(customerId)
+                .stream()
+                .map(Ticket::getFlight)
+                .map(flightMapper::mapToFlightDto)
+                .toList();
+    }
+
+
 }

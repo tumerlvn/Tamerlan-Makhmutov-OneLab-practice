@@ -13,4 +13,6 @@ import java.util.*;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findAllByFlightId(Long flightId);
+    List<Ticket> findAllByCustomerId(Long customerId);
+    Ticket findByFlightIdAndCustomerId(Long flightId, Long customerId);
 }

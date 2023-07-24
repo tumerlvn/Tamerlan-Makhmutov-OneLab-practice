@@ -17,5 +17,4 @@ public class TicketDTO {
     private Long id;
     private CustomerDTO customerDto;
     private FlightDTO flightDto;
-    private String departureDateTime;
 }

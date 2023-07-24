@@ -24,6 +24,7 @@ public class FlightMapper {
                 .arrivalCity(flight.getArrivalCity())
                 .departureCity(flight.getDepartureCity())
                 .departureTime(flight.getDepartureTime())
+                .arrivalTime(flight.getArrivalTime())
                 .build();
     }
 
@@ -41,6 +42,7 @@ public class FlightMapper {
                 .arrivalCity(flight.getArrivalCity())
                 .departureCity(flight.getDepartureCity())
                 .departureTime(flight.getDepartureTime())
+                .arrivalTime(flight.getArrivalTime())
                 .build();
     }
 
@@ -53,6 +55,7 @@ public class FlightMapper {
                 .arrivalCity(dto.getArrivalCity())
                 .departureCity(dto.getDepartureCity())
                 .departureTime(dto.getDepartureTime())
+                .arrivalTime(dto.getArrivalTime())
                 .build();
     }
 

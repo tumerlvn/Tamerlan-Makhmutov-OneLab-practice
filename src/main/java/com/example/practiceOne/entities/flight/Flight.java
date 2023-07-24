@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +30,9 @@ public class Flight {
     @Column
     private String arrivalCity;
     @Column
-    private String departureTime;
+    private LocalDate departureTime;
+    @Column
+    private LocalDate arrivalTime;
 
     @OneToMany(mappedBy = "flight",
     cascade = CascadeType.ALL,

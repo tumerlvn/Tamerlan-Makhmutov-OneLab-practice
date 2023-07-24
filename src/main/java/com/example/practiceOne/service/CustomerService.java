@@ -12,4 +12,6 @@ public interface CustomerService {
 
     List<CustomerDTO> queryByNameEnd(String ending);
 
+    void bookTicket(Long customerId, Long flightId);
+
 }

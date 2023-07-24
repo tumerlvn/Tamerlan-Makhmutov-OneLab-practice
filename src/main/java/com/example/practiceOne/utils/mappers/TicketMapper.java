@@ -24,7 +24,6 @@ public class TicketMapper {
                 .id(ticket.getId())
                 .customerDto(customerMapper.mapToCustomerDto(ticket.getCustomer()))
                 .flightDto(flightMapper.mapToFlightDto(ticket.getFlight()))
-                .departureDateTime(ticket.getDepartureDateTime())
                 .build();
     }
 
@@ -39,7 +38,6 @@ public class TicketMapper {
                 .id(ticket.getId())
                 .customerDto(customerMapper.mapToCustomerDto(ticket.getCustomer()))
                 .flightDto(flightMapper.mapToFlightDto(ticket.getFlight()))
-                .departureDateTime(ticket.getDepartureDateTime())
                 .build();
     }
 
@@ -49,7 +47,6 @@ public class TicketMapper {
                 .id(dto.getId())
                 .customer(customerMapper.mapToCustomer(dto.getCustomerDto()))
                 .flight(flightMapper.mapToFlight(dto.getFlightDto()))
-                .departureDateTime(dto.getDepartureDateTime())
                 .build();
     }
 }

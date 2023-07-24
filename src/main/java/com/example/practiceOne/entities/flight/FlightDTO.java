@@ -1,10 +1,12 @@
 package com.example.practiceOne.entities.flight;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -16,5 +18,6 @@ public class FlightDTO {
     private String aircraftCode;
     private String departureCity;
     private String arrivalCity;
-    private String departureTime;
+    private LocalDate departureTime;
+    private LocalDate arrivalTime;
 }
