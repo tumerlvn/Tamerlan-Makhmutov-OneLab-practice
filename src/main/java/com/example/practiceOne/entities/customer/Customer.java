@@ -25,10 +25,13 @@ public class Customer {
     private String email;
 
     @Column
-    private String hashedPassword;
+    private String password;
 
     @Column
     private String passportNumber;
+
+    @Column
+    private Float balance;
 
     @OneToMany(
             mappedBy = "customer",

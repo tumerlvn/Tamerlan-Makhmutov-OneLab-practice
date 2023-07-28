@@ -24,6 +24,9 @@ public class TicketMapper {
                 .id(ticket.getId())
                 .customerDto(customerMapper.mapToCustomerDto(ticket.getCustomer()))
                 .flightDto(flightMapper.mapToFlightDto(ticket.getFlight()))
+                .seatNumber(ticket.getSeatNumber())
+                .baggageAmount(ticket.getBaggageAmount())
+                .seatClass(ticket.getSeatClass())
                 .build();
     }
 
@@ -38,6 +41,9 @@ public class TicketMapper {
                 .id(ticket.getId())
                 .customerDto(customerMapper.mapToCustomerDto(ticket.getCustomer()))
                 .flightDto(flightMapper.mapToFlightDto(ticket.getFlight()))
+                .seatNumber(ticket.getSeatNumber())
+                .baggageAmount(ticket.getBaggageAmount())
+                .seatClass(ticket.getSeatClass())
                 .build();
     }
 
@@ -47,6 +53,9 @@ public class TicketMapper {
                 .id(dto.getId())
                 .customer(customerMapper.mapToCustomer(dto.getCustomerDto()))
                 .flight(flightMapper.mapToFlight(dto.getFlightDto()))
+                .seatNumber(dto.getSeatNumber())
+                .baggageAmount(dto.getBaggageAmount())
+                .seatClass(dto.getSeatClass())
                 .build();
     }
 }

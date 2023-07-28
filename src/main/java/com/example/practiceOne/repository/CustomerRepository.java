@@ -12,6 +12,6 @@ import java.util.*;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-
+    Customer findByUsername(String username);
 
 }

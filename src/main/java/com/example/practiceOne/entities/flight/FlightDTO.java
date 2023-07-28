@@ -20,4 +20,7 @@ public class FlightDTO {
     private String arrivalCity;
     private LocalDate departureTime;
     private LocalDate arrivalTime;
+    // Первые 20 сидений у каждого самолета - первый класс(пока что так)
+    private Integer numberOfSeats;
+    private Float distance;
 }

@@ -1,5 +1,6 @@
 package com.example.practiceOne.entities.ticket;
 
+import com.example.practiceOne.entities.additions.SeatClass;
 import com.example.practiceOne.entities.customer.Customer;
 import com.example.practiceOne.entities.flight.Flight;
 import jakarta.persistence.*;
@@ -26,4 +27,11 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
+    @Column
+    private Integer seatNumber;
+    @Column
+    private Integer baggageAmount;
+    @Enumerated(EnumType.STRING)
+    @Column
+    private SeatClass seatClass;
 }

@@ -33,6 +33,10 @@ public class Flight {
     private LocalDate departureTime;
     @Column
     private LocalDate arrivalTime;
+    @Column
+    private Integer numberOfSeats;
+    @Column
+    private Float distance;
 
     @OneToMany(mappedBy = "flight",
     cascade = CascadeType.ALL,

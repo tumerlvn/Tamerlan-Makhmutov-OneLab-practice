@@ -25,6 +25,8 @@ public class FlightMapper {
                 .departureCity(flight.getDepartureCity())
                 .departureTime(flight.getDepartureTime())
                 .arrivalTime(flight.getArrivalTime())
+                .numberOfSeats(flight.getNumberOfSeats())
+                .distance(flight.getDistance())
                 .build();
     }
 
@@ -43,6 +45,8 @@ public class FlightMapper {
                 .departureCity(flight.getDepartureCity())
                 .departureTime(flight.getDepartureTime())
                 .arrivalTime(flight.getArrivalTime())
+                .numberOfSeats(flight.getNumberOfSeats())
+                .distance(flight.getDistance())
                 .build();
     }
 
@@ -56,6 +60,8 @@ public class FlightMapper {
                 .departureCity(dto.getDepartureCity())
                 .departureTime(dto.getDepartureTime())
                 .arrivalTime(dto.getArrivalTime())
+                .numberOfSeats(dto.getNumberOfSeats())
+                .distance(dto.getDistance())
                 .build();
     }
 

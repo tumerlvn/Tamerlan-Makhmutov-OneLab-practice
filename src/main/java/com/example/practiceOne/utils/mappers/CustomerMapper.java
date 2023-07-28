@@ -3,7 +3,6 @@ package com.example.practiceOne.utils.mappers;
 import com.example.practiceOne.entities.customer.Customer;
 import com.example.practiceOne.entities.customer.CustomerDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 
@@ -20,8 +19,9 @@ public class CustomerMapper {
                 .id(customer.getId())
                 .email(customer.getEmail())
                 .username(customer.getUsername())
-                .hashedPassword(customer.getHashedPassword())
+                .password(customer.getPassword())
                 .passportNumber(customer.getPassportNumber())
+                .balance(customer.getBalance())
                 .build();
     }
 
@@ -36,8 +36,9 @@ public class CustomerMapper {
                 .id(customer.getId())
                 .email(customer.getEmail())
                 .username(customer.getUsername())
-                .hashedPassword(customer.getHashedPassword())
+                .password(customer.getPassword())
                 .passportNumber(customer.getPassportNumber())
+                .balance(customer.getBalance())
                 .build();
     }
 
@@ -48,8 +49,9 @@ public class CustomerMapper {
                 .id(dto.getId())
                 .email(dto.getEmail())
                 .username(dto.getUsername())
-                .hashedPassword(dto.getHashedPassword())
+                .password(dto.getPassword())
                 .passportNumber(dto.getPassportNumber())
+                .balance(dto.getBalance())
                 .build();
     }
 }

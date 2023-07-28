@@ -1,5 +1,6 @@
 package com.example.practiceOne.service.app;
 
+import com.example.practiceOne.entities.additions.SeatClass;
 import com.example.practiceOne.entities.booking.BookingDTO;
 import com.example.practiceOne.entities.customer.CustomerDTO;
 import com.example.practiceOne.entities.flight.FlightDTO;
@@ -43,22 +44,13 @@ public class TicketServiceImpl implements TicketService {
 
     }
 
-    @Override
-    public void createTicket(Long customerId, Long flightId) {
-        CustomerDTO customerDto = customerService.getCustomer(customerId);
-        FlightDTO flightDto = flightService.getFlight(flightId);
 
-        TicketDTO ticketDTO = TicketDTO
-                .builder()
-                .customerDto(customerDto)
-                .flightDto(flightDto)
-                .build();
-        ticketRepository.save(ticketMapper.mapToTicket(ticketDTO));
-    }
 
+    //Todo: дополнить
     @Override
     @KafkaListener(groupId = "server.broadcast", topics = {"server.booking"}, containerFactory = "kafkaListenerContainerFactory")
     public void createTicketFromBooking(BookingDTO bookingDTO) {
+        // Я к сожалению не совсем уверен где делать проверки, поэтому решил разделить на две части
         CustomerDTO customerDTO;
         FlightDTO flightDTO;
         if ((customerDTO = customerService.getCustomer(bookingDTO.getCustomerId())) == null) {
@@ -76,13 +68,19 @@ public class TicketServiceImpl implements TicketService {
         List<FlightDTO> flightsOfCustomer = flightService.getAllFlightsOfCustomer(customerDTO.getId());
         if (!flightsOfCustomer.stream().filter(e -> Objects.equals(e.getId(), flightDTO.getId())).findFirst().isEmpty()) {
             log.error("Ticket already bought");
+            return;
         }
+
+        //Todo: update balance of customer
 
 
         TicketDTO ticketDTO = TicketDTO
                 .builder()
                 .customerDto(customerDTO)
                 .flightDto(flightDTO)
+                .seatNumber(bookingDTO.getSeatNumber())
+                .baggageAmount(bookingDTO.getBaggageAmount())
+                .seatClass(bookingDTO.getSeatClass())
                 .build();
         ticketRepository.save(ticketMapper.mapToTicket(ticketDTO));
         log.info("Ticket has been created");
