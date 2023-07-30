@@ -13,7 +13,6 @@ import com.example.practiceOne.repository.TicketRepository;
 import com.example.practiceOne.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -66,6 +65,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomerByUsername(String username) {
         return customerMapper.mapToCustomerDto(customerRepository.findByUsername(username));
+    }
+
+    @Override
+    public CustomerDTO updateBalanceOfUser(Long customerId, Float change) {
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+        if (customer == null) {
+            log.error("Customer doesn't exist");
+            return null;
+        }
+        customer.setBalance(customer.getBalance() + change);
+        customerRepository.save(customer);
+        return customerMapper.mapToCustomerDto(customer);
     }
 
     @Override

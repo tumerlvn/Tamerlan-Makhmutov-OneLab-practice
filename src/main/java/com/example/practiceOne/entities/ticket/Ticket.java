@@ -34,4 +34,6 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     @Column
     private SeatClass seatClass;
+    @Column
+    private Float cost;
 }

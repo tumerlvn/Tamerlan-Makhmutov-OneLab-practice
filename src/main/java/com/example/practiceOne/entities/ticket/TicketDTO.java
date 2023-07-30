@@ -24,4 +24,5 @@ public class TicketDTO {
     private Integer seatNumber;
     private Integer baggageAmount;
     private SeatClass seatClass;
+    private Float cost;
 }

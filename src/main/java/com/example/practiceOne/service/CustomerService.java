@@ -13,6 +13,8 @@ public interface CustomerService {
 
     CustomerDTO getCustomerByUsername(String username);
 
+    CustomerDTO updateBalanceOfUser(Long customerId, Float change);
+
     List<CustomerDTO> queryByNameEnd(String ending);
 
     void bookTicket(Long customerId, Long flightId, Integer baggageAmount, SeatClass seatClass);

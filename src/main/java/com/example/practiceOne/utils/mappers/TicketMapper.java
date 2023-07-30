@@ -27,6 +27,7 @@ public class TicketMapper {
                 .seatNumber(ticket.getSeatNumber())
                 .baggageAmount(ticket.getBaggageAmount())
                 .seatClass(ticket.getSeatClass())
+                .cost(ticket.getCost())
                 .build();
     }
 
@@ -44,6 +45,7 @@ public class TicketMapper {
                 .seatNumber(ticket.getSeatNumber())
                 .baggageAmount(ticket.getBaggageAmount())
                 .seatClass(ticket.getSeatClass())
+                .cost(ticket.getCost())
                 .build();
     }
 
@@ -56,6 +58,7 @@ public class TicketMapper {
                 .seatNumber(dto.getSeatNumber())
                 .baggageAmount(dto.getBaggageAmount())
                 .seatClass(dto.getSeatClass())
+                .cost(dto.getCost())
                 .build();
     }
 }

@@ -1,9 +1,9 @@
 package com.example.practiceOne.service.app;
 
-import com.example.practiceOne.entities.additions.SeatClass;
 import com.example.practiceOne.entities.booking.BookingDTO;
 import com.example.practiceOne.entities.customer.CustomerDTO;
 import com.example.practiceOne.entities.flight.FlightDTO;
+import com.example.practiceOne.entities.ticket.Ticket;
 import com.example.practiceOne.entities.ticket.TicketDTO;
 import com.example.practiceOne.service.CustomerService;
 import com.example.practiceOne.service.FlightService;
@@ -13,9 +13,12 @@ import com.example.practiceOne.service.TicketService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -45,9 +48,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
 
-
-    //Todo: дополнить
     @Override
+    @Transactional
     @KafkaListener(groupId = "server.broadcast", topics = {"server.booking"}, containerFactory = "kafkaListenerContainerFactory")
     public void createTicketFromBooking(BookingDTO bookingDTO) {
         // Я к сожалению не совсем уверен где делать проверки, поэтому решил разделить на две части
@@ -71,7 +73,7 @@ public class TicketServiceImpl implements TicketService {
             return;
         }
 
-        //Todo: update balance of customer
+        customerService.updateBalanceOfUser(customerDTO.getId(), -bookingDTO.getCost());
 
 
         TicketDTO ticketDTO = TicketDTO
@@ -81,8 +83,31 @@ public class TicketServiceImpl implements TicketService {
                 .seatNumber(bookingDTO.getSeatNumber())
                 .baggageAmount(bookingDTO.getBaggageAmount())
                 .seatClass(bookingDTO.getSeatClass())
+                .cost(bookingDTO.getCost())
                 .build();
         ticketRepository.save(ticketMapper.mapToTicket(ticketDTO));
         log.info("Ticket has been created");
+    }
+
+
+    @Override
+    @Transactional
+    public void returnTicket(User user, Long ticketId) {
+        CustomerDTO customerDTO = customerService.getCustomerByUsername(user.getUsername());
+        Ticket ticket = ticketRepository.findAllByCustomerId(customerDTO.getId()).stream()
+                .filter(e -> e.getId().equals(ticketId))
+                .findFirst()
+                .orElse(null);
+        if (ticket == null) {
+            log.error("You don't have such ticket");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        if (ticket.getFlight().getDepartureTime().minusDays(1).isBefore(LocalDate.now())) {
+            log.error("Return of ticket is over");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        customerService.updateBalanceOfUser(customerDTO.getId(), ticket.getCost());
+
     }
 }
