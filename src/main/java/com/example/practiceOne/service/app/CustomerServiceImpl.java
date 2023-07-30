@@ -94,7 +94,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         int lowBound;
         int upperBound;
-        if (seatClass == SeatClass.FIRST) {
+        if (seatClass == SeatClass.first) {
             lowBound = 1;
             upperBound = 20;
         } else {

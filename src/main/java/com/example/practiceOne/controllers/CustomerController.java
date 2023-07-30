@@ -3,7 +3,9 @@ package com.example.practiceOne.controllers;
 import com.example.practiceOne.entities.additions.SeatClass;
 import com.example.practiceOne.entities.booking.BookingForm;
 import com.example.practiceOne.entities.customer.CustomerDTO;
+import com.example.practiceOne.entities.ticket.TicketDTO;
 import com.example.practiceOne.service.CustomerService;
+import com.example.practiceOne.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping(path = "/customer")
 public class CustomerController {
     private final CustomerService customerService;
+    private final TicketService ticketService;
 
     @GetMapping("/all")
     @ResponseBody
@@ -30,5 +33,10 @@ public class CustomerController {
                 bookingForm.getBaggageAmount(),
                 bookingForm.getSeatClass()
         );
+    }
+
+    @GetMapping("/{id}/tickets")
+    public List<TicketDTO> getTicketsOfCustomer(@PathVariable Long customerId) {
+        return ticketService.getAllTicketsOfCustomer(customerId);
     }
 }
