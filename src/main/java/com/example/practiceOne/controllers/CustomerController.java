@@ -7,6 +7,9 @@ import com.example.practiceOne.entities.ticket.TicketDTO;
 import com.example.practiceOne.service.CustomerService;
 import com.example.practiceOne.service.TicketService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -14,29 +17,36 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/customer")
 public class CustomerController {
     private final CustomerService customerService;
     private final TicketService ticketService;
 
-    @GetMapping("/all")
-    @ResponseBody
-    public List<CustomerDTO> getAll() {
-        return customerService.getAllCustomers();
+    @GetMapping("/customer/all")
+    public ResponseEntity<List<CustomerDTO>> getAll() {
+        try {
+            return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping("/bookFlight")
-    public void bookFlight(@RequestBody BookingForm bookingForm) {
+    @PostMapping("/customer/bookFlight")
+    public ResponseEntity<?> bookFlight(@RequestBody BookingForm bookingForm) {
         customerService.bookTicket(
                 bookingForm.getCustomerId(),
                 bookingForm.getFlightId(),
                 bookingForm.getBaggageAmount(),
                 bookingForm.getSeatClass()
         );
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/tickets")
-    public List<TicketDTO> getTicketsOfCustomer(@PathVariable Long customerId) {
-        return ticketService.getAllTicketsOfCustomer(customerId);
+    @GetMapping("/customer/{customerId}/tickets")
+    public ResponseEntity<List<TicketDTO>> getTicketsOfCustomer(@PathVariable Long customerId) {
+        try {
+            return new ResponseEntity<>(ticketService.getAllTicketsOfCustomer(customerId), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
