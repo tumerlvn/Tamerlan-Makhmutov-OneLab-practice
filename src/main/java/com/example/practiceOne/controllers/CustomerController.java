@@ -1,5 +1,6 @@
 package com.example.practiceOne.controllers;
 
+import com.example.practiceOne.entities.additions.EmptyResponse;
 import com.example.practiceOne.entities.additions.SeatClass;
 import com.example.practiceOne.entities.booking.BookingForm;
 import com.example.practiceOne.entities.customer.CustomerDTO;
@@ -19,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,14 +40,14 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/bookFlight")
-    public ResponseEntity<?> bookFlight(@RequestBody BookingForm bookingForm) {
+    public ResponseEntity<EmptyResponse> bookFlight(@RequestBody BookingForm bookingForm) {
         customerService.bookTicket(
                 bookingForm.getCustomerId(),
                 bookingForm.getFlightId(),
                 bookingForm.getBaggageAmount(),
                 bookingForm.getSeatClass()
         );
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(EmptyResponse.builder().status(HttpStatus.OK).message("Ok").timeStamp(LocalDate.now()).build(), HttpStatus.OK);
     }
 
     @GetMapping("/customer/{customerId}/tickets")
@@ -75,17 +77,17 @@ public class CustomerController {
     }
 
     @DeleteMapping("/customer/return-ticket/{ticketId}")
-    public ResponseEntity<?> returnTicket(@PathVariable Long ticketId) {
+    public ResponseEntity<EmptyResponse> returnTicket(@PathVariable Long ticketId) {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             ticketService.returnTicket((User) auth.getPrincipal(), ticketId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(EmptyResponse.builder().status(HttpStatus.OK).message("Ok").timeStamp(LocalDate.now()).build(), HttpStatus.OK);
         } catch (ResponseStatusException responseStatusException) {
             log.error(responseStatusException.toString());
             throw responseStatusException;
         } catch (Exception e) {
             log.error(e.toString());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(EmptyResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).message("Something wrong").timeStamp(LocalDate.now()).build(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
