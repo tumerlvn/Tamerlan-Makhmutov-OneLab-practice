@@ -65,11 +65,14 @@ public class LoggingAspect {
 
 
         try {
+            long startTime = System.nanoTime();
             Object result = joinPoint.proceed();
+            long endTime = System.nanoTime();
 
             if (result instanceof ResponseEntity<?> responseEntity) {
                 log.info("Http Status: {}", responseEntity.getStatusCode());
                 log.info("Response Headers: {}", responseEntity.getHeaders());
+                log.info("Duration: {}", (endTime - startTime)/1000000);
                 try {
                     log.info("Response Body: {}", mapper.writeValueAsString(responseEntity.getBody()));
                 } catch (Exception e) {

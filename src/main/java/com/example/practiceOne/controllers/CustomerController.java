@@ -33,7 +33,10 @@ public class CustomerController {
     @GetMapping("/customer/all")
     public ResponseEntity<List<CustomerDTO>> getAll() {
         try {
+            Thread.sleep(60000);
             return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
+        } catch (InterruptedException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -53,6 +56,11 @@ public class CustomerController {
     @GetMapping("/customer/{customerId}/tickets")
     public ResponseEntity<List<TicketDTO>> getTicketsOfCustomer(@PathVariable Long customerId) {
         try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        try {
             return new ResponseEntity<>(ticketService.getAllTicketsOfCustomer(customerId), HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,6 +69,11 @@ public class CustomerController {
 
     @GetMapping("/customer/my-tickets")
     public ResponseEntity<List<TicketDTO>> getTicketsOfCurrentUser() {
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = (User) auth.getPrincipal();

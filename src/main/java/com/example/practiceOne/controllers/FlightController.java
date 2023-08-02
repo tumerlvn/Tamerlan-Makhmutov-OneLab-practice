@@ -20,6 +20,11 @@ public class FlightController {
     @GetMapping
     public ResponseEntity<List<FlightDTO>> getAll() {
         try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        try {
             return new ResponseEntity<>(flightService.getAllFlights(), HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
